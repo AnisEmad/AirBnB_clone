@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Model for handling file storage of the AirBnB project."""
 import json
+import os
 
 class FileStorage:
     """Serialize/deserialize instances to a JSON file."""
@@ -9,16 +10,20 @@ class FileStorage:
 
     def all(self):
         """Get a dictionary of all stored objects."""
-        pass
+        return FileStorage.__objects
 
     def new(self, obj):
         """Add a new object to the storage (__objects)."""
-        pass
+        key = str(obj.__class__name) + str(obj.id)
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """Serialize __objects to json."""
-        pass
+        with open(FileStorage.__file_path, 'w') as file:
+            json.dump(FileStorage.__objects, file)
 
     def reload(self):
         """Deserialize __objects from json."""
-        pass
+        if os.path.exists(FileStorage.__file_path):
+            with open(FileStorage.__file_path, 'r') as file:
+                FileStorage.__objects = json.load(file)
