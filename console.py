@@ -33,6 +33,14 @@ class HBNBCommand(cmd.Cmd):
         update instance attributes 
         """
         pass
+    def do_EOF(self, arg):
+        """exit the program"""
+        print()
+        return True
+
+    def do_quit(self, arg):
+        """exit the program"""
+        return True
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
