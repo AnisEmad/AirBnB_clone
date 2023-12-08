@@ -26,4 +26,4 @@ class BaseModel:
     def save(self):
         """Save the attributes at the current time."""
         self.updated_at = datetime.datetime.now()
-        # call storage.save()
+        storage.save()
