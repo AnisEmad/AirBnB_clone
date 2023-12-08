@@ -8,11 +8,13 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
 
     def do_create(self, arg):
-        """create a new instance of BaseModel."""
+        """create <ClassName>
+        create a new instance of BaseModel."""
         pass
 
     def do_show(self, arg):
-        """Print __str__ of an instance."""
+        """show <instance> <id>
+        Print __str__ of an instance."""
         pass
 
     def do_destroy(self, arg):
@@ -20,6 +22,17 @@ class HBNBCommand(cmd.Cmd):
         Delete the given instance."""
         pass
 
+    def do_all(self, arg):
+        """ all <ClassName> or all 
+        Prints all str representation
+        """
+        pass
+
+    def do_update(self, arg):
+        """ update <class name> <id> <attribute name> "<attribute value>"
+        update instance attributes 
+        """
+        pass
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

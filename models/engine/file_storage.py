@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Model for handling file storage of the AirBnB project."""
 import json
 
