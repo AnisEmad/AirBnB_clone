@@ -14,8 +14,8 @@ class FileStorage:
 
     def new(self, obj):
         """Add a new object to the storage (__objects)."""
-        key = str(obj.__class__.__name__) + str(obj.id)
-        FileStorage.__objects[key] = obj
+        key = f"[{obj.__class__.__name__}] ({obj.id})"
+        FileStorage.__objects[key] = obj.to_dict()
 
     def save(self):
         """Serialize __objects to json."""
