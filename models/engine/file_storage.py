@@ -14,7 +14,7 @@ class FileStorage:
 
     def new(self, obj):
         """Add a new object to the storage (__objects)."""
-        key = str(obj.__class__name) + str(obj.id)
+        key = str(obj.__class__.__name__) + str(obj.id)
         FileStorage.__objects[key] = obj
 
     def save(self):
