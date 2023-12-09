@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-unittest module for FileStorage class
+unittest module for BaseModel class
 """
 import unittest
 
