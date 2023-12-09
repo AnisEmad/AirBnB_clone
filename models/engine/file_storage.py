@@ -14,16 +14,22 @@ class FileStorage:
 
     def new(self, obj):
         """Add a new object to the storage (__objects)."""
-        key = f"[{obj.__class__.__name__}] ({obj.id})"
-        FileStorage.__objects[key] = obj.to_dict()
+        key = f"{obj.__class__.__name__}.{obj.id}"
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """Serialize __objects to json."""
+        for key, value in FileStorage.__objects.items():
+            FileStorage.__objects[key] = value.to_dict()
+            #del FileStorage.__objects[key]["__class__"]
         with open(FileStorage.__file_path, 'w') as file:
             json.dump(FileStorage.__objects, file)
 
     def reload(self):
         """Deserialize __objects from json."""
+        from models.base_model import BaseModel
         if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, 'r') as file:
                 FileStorage.__objects = json.load(file)
+        for key, value in FileStorage.__objects.items():
+            FileStorage.__objects[key] = BaseModel(**value)
