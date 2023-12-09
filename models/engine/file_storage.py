@@ -10,6 +10,7 @@ class FileStorage:
 
     def all(self):
         """Get a dictionary of all stored objects."""
+        FileStorage.reload()
         return FileStorage.__objects
 
     def new(self, obj):
@@ -24,6 +25,7 @@ class FileStorage:
             #del FileStorage.__objects[key]["__class__"]
         with open(FileStorage.__file_path, 'w') as file:
             json.dump(FileStorage.__objects, file)
+        
 
     def reload(self):
         """Deserialize __objects from json."""
