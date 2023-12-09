@@ -23,16 +23,17 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_all(self, arg):
-        """ all <ClassName> or all 
+        """ all <ClassName> or all
         Prints all str representation
         """
         pass
 
     def do_update(self, arg):
         """ update <class name> <id> <attribute name> "<attribute value>"
-        update instance attributes 
+        update instance attributes
         """
         pass
+
     def do_EOF(self, arg):
         """exit the program"""
         print()
@@ -41,6 +42,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, arg):
         """exit the program"""
         return True
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
