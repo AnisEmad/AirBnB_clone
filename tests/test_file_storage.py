@@ -1,7 +1,19 @@
 #!/usr/bin/python3
+"""
+unittest module for FileStorage class
+"""
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+
+class TestInstantiation(unittest.TestCase):
+    """
+    instantiation test
+    """
+    def test_init(self):
+        """test"""
+        pass
+
 class TestFileStorage(unittest.TestCase):
 
     def test_all_empty(self):
