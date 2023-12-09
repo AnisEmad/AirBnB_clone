@@ -10,7 +10,6 @@ class FileStorage:
 
     def all(self):
         """Get a dictionary of all stored objects."""
-        FileStorage.reload()
         return FileStorage.__objects
 
     def new(self, obj):
