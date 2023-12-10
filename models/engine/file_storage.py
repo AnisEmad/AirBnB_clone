@@ -9,6 +9,10 @@ class FileStorage:
     __file_path = "file.json"
     __objects = dict()
 
+    def __inti__(self) -> None:
+        """Class constructor."""
+        pass
+
     def all(self):
         """Get a dictionary of all stored objects."""
         return FileStorage.__objects
