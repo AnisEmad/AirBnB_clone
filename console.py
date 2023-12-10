@@ -20,6 +20,12 @@ class_list = {
         "amenity": Amenity
 }
 
+method_list = [
+        "all()",
+        "show()",
+
+]
+
 
 def valid_class(name):
     """Check if the class is valid or print error."""
@@ -134,6 +140,14 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Type nothing, do nothing."""
         return False
+    
+    def default(self, arg):
+        """Override the default error msg"""
+        args = arg.split(".") + [""];
+        if args[0].lower() in class_list and args[1] in method_list:
+            eval(f"self.do_{args[1][:-2]}('{args[0]}')")
+        else:
+            super().default(arg)
 
 
 if __name__ == '__main__':
