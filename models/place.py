@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-""" module for manging places """
+"""module for manging places."""
 
-from base_model import BaseModel
+from models.base_model import BaseModel
 
 class Place(BaseModel):
-    """ Create new place """
+    """Create new place."""
     city_id = ""
     user_id = ""
     name = ""

@@ -3,6 +3,7 @@
 import json
 import os
 
+
 class FileStorage:
     """Serialize/deserialize instances to a JSON file."""
     __file_path = "file.json"

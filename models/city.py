@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-""" module for manging cities """
+"""Module for manging cities."""
 
-from base_model import BaseModel
+from models.base_model import BaseModel
 
 class City(BaseModel):
-    """ Create new city """
+    """Create new city."""
     name = ""
     state_id = ""

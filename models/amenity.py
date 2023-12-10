@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-""" module for manging amenity """
+"""module for manging amenity."""
+from models.base_model import BaseModel
 
-from base_model import BaseModel
 
-class State(BaseModel):
-    """ Create new amenity """
+class Amenity(BaseModel):
+    """Create new amenity."""
     name = ""
