@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """The entry point to interact with the AirBnB console."""
 import cmd
-import functions as utils
 from models             import storage
 from models.base_model  import BaseModel
 from models.user        import User
@@ -42,8 +41,17 @@ def get_instance(class_name, instance_id):
         return all[key]
     return False
 
+def get_value(string):
+    """Get the first meaningful value from a string."""
+    first_char = string[0]
+    if first_char == '"':
+        return string.split('"')[1]
+    else:
+        return string.split(' ')[0]
+
+
 class HBNBCommand(cmd.Cmd):
-    """The console."""
+    """The console of the AirBnB project."""
     prompt = "(hbnb)"
 
     def do_create(self, arg):
@@ -52,7 +60,7 @@ class HBNBCommand(cmd.Cmd):
         if valid_class(arg):
             instance = class_list[arg.lower()]()
             print(instance.id)
-
+            storage.save()
 
     def do_show(self, arg):
         """show <class name> <instance id>
@@ -63,8 +71,6 @@ class HBNBCommand(cmd.Cmd):
             if instance:
                 print(instance)
 
-
-
     def do_destroy(self, arg):
         """destroy <instance>
         Delete the given instance."""
@@ -72,20 +78,49 @@ class HBNBCommand(cmd.Cmd):
         if valid_class(args[0]):
             instance = get_instance(args[0], args[1])
             if instance:
+                key = f"{instance.__class__.__name__}.{instance.id}"
+                del storage.all()[key]
                 del instance
+                storage.save()
 
     def do_all(self, arg):
         """all [class name]
         Show informations about every available instance of a specific class
         if no argument given all classes is considered.
         """
-        pass
+        needed = dict()
+        if arg != "" and valid_class(arg):
+            for key, instance in storage.all():
+                if arg.lower() in key.lower():
+                    needed[key] = instance
+        elif arg == "":
+            needed = storage.all()
+
+        for key, instance in needed.items():
+            print(instance);
+
 
     def do_update(self, arg):
         """update <class name> <id> <attribute name> "<attribute value>"
         Update an instance attribute.
         """
-        pass
+        args = arg.split(" ", 3) + ["", "", ""]
+        if not valid_class(args[0]):
+            return False
+        instance = get_instance(args[0], args[1])
+        if not instance:
+            return False
+        if args[2] == "":
+            print("** attribute name missing **")
+            return False
+        if args[3] == "":
+            print("** value missing **")
+        else:
+            value = get_value(args[3])
+            instance.__dict__[args[2]] = value
+            storage.save()
+
+
 
     def do_EOF(self, arg):
         """exit the program"""
