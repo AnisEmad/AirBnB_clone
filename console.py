@@ -55,7 +55,7 @@ def get_value(string):
 
 class HBNBCommand(cmd.Cmd):
     """The console of the AirBnB project."""
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
 
     def do_create(self, arg):
         """create <class name>
