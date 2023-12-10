@@ -6,6 +6,7 @@ import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
+
 class TestInstantiation(unittest.TestCase):
     """
     instantiation test
@@ -14,11 +15,12 @@ class TestInstantiation(unittest.TestCase):
         """test"""
         pass
 
+
 class TestFileStorage(unittest.TestCase):
 
     def test_all_empty(self):
         pass
-    
+
     def test_new(self):
         test_storage = FileStorage()
         test_base = BaseModel()
@@ -27,7 +29,8 @@ class TestFileStorage(unittest.TestCase):
         for key in FileStorage._FileStorage__objects:
             if (key == test_key):
                 self.assertEqual(key, test_key)
-        self.assertEqual(test_base,FileStorage._FileStorage__objects[test_key])
+        test_base_2 = FileStorage._FileStorage__objects[test_key]
+        self.assertEqual(test_base, test_base_2)
 
     def test_save(self):
         pass
