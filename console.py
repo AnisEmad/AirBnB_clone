@@ -1,24 +1,25 @@
 #!/usr/bin/python3
 """The entry point to interact with the AirBnB console."""
 import cmd
-from models             import storage
-from models.base_model  import BaseModel
-from models.user        import User
-from models.city        import City
-from models.place       import Place
-from models.state       import State
-from models.review      import Review
-from models.amenity     import Amenity
+from models import storage
+from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.review import Review
+from models.amenity import Amenity
 
 class_list = {
         "basemodel": BaseModel,
-        "user"     : User,
-        "city"     : City,
-        "place"    : Place,
-        "state"    : State,
-        "review"   : Review,
-        "amenity"  : Amenity
+        "user": User,
+        "city": City,
+        "place": Place,
+        "state": State,
+        "review": Review,
+        "amenity": Amenity
 }
+
 
 def valid_class(name):
     """Check if the class is valid or print error."""
@@ -28,6 +29,7 @@ def valid_class(name):
         print("** class doesn't exist **")
     else:
         return True
+
 
 def get_instance(class_name, instance_id):
     """Get an instance from the storage (if exist)"""
@@ -40,6 +42,7 @@ def get_instance(class_name, instance_id):
     else:
         return all[key]
     return False
+
 
 def get_value(string):
     """Get the first meaningful value from a string."""
@@ -97,8 +100,7 @@ class HBNBCommand(cmd.Cmd):
             needed = storage.all()
 
         for key, instance in needed.items():
-            print(instance);
-
+            print(instance)
 
     def do_update(self, arg):
         """update <class name> <id> <attribute name> "<attribute value>"
@@ -119,8 +121,6 @@ class HBNBCommand(cmd.Cmd):
             value = get_value(args[3])
             instance.__dict__[args[2]] = value
             storage.save()
-
-
 
     def do_EOF(self, arg):
         """exit the program"""
