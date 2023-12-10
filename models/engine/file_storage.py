@@ -27,15 +27,13 @@ class FileStorage:
         copy = FileStorage.__objects.copy()
         for key, value in copy.items():
             copy[key] = value.to_dict()
-            #del FileStorage.__objects[key]["__class__"]
         with open(FileStorage.__file_path, 'w') as file:
             json.dump(copy, file)
-        
 
     def reload(self):
         """Deserialize __objects from json."""
-        from models import base_model, user, place, amenity, city, \
-        state, review
+        from models import base_model, user, place, amenity, city
+        from models import state, review
         classes = {
             "BaseModel": base_model.BaseModel,
             "User": user.User,
@@ -49,4 +47,5 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as file:
                 FileStorage.__objects = json.load(file)
         for key, value in FileStorage.__objects.items():
-            FileStorage.__objects[key] = classes[FileStorage.__objects[key]["__class__"]](**value)
+            FileStorage.__objects[key] = \
+                classes[FileStorage.__objects[key]["__class__"]](**value)
