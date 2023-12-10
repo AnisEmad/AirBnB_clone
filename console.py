@@ -93,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
         """
         needed = dict()
         if arg != "" and valid_class(arg):
-            for key, instance in storage.all():
+            for key, instance in storage.all().items():
                 if arg.lower() in key.lower():
                     needed[key] = instance
         elif arg == "":
