@@ -10,6 +10,7 @@ from models.state import State
 from models.review import Review
 from models.amenity import Amenity
 
+
 class_list = {
         "basemodel": BaseModel,
         "user": User,
@@ -20,11 +21,40 @@ class_list = {
         "amenity": Amenity
 }
 
-method_list = [
-        "all()",
-        "show()",
 
-]
+def dot_all(**kwargs):
+    """<class name>.all()
+    Show all instances created from specific class
+    same as typing:
+        show <class name> <id>
+    """
+    kwargs["cmd_instance"].do_all(kwargs["class_name"])
+
+def dot_count(**kwargs):
+    """<class name>.count()
+    Get number of instances available for a class name
+    """
+    count = 0
+    for key, instance in storage.all().items():
+        if kwargs["class_name"] in key.lower():
+            count += 1
+    print(count)
+
+def dot_show(**kwargs):
+    """<class name>.show(<id>)
+    Show informations about specific instance
+    same as typing:
+        show <class name> <id>
+    """
+    arg = kwargs["class_name"] + " " + kwargs["method_args"]
+    kwargs["cmd_instance"].do_show(arg)
+
+
+method_list = {
+        "all": dot_all,
+        "show": dot_show,
+        "count": dot_count,
+}
 
 
 def valid_class(name):
@@ -108,6 +138,7 @@ class HBNBCommand(cmd.Cmd):
         for key, instance in needed.items():
             print(instance)
 
+
     def do_update(self, arg):
         """update <class name> <id> <attribute name> "<attribute value>"
         Update an instance attribute.
@@ -140,14 +171,24 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Type nothing, do nothing."""
         return False
-    
-    def default(self, arg):
-        """Override the default error msg"""
-        args = arg.split(".") + [""];
-        if args[0].lower() in class_list and args[1] in method_list:
-            eval(f"self.do_{args[1][:-2]}('{args[0]}')")
-        else:
-            super().default(arg)
+
+    def default(self, command):
+        """Override the default error msg.
+        but this is for implementing another way of typing commands.
+        """
+        if "." not in command:
+            super().default(command)
+            return False
+        command = command.split(".", 1) + [""]
+        method = command[1].split('(', 1) + [""]
+        class_name = command[0].lower()
+        method_name = method[0]
+        method_args = method[1].split(')')[0]
+        if class_name in class_list and method_name in method_list:
+            method_list[method_name](
+                    cmd_instance=self,
+                    class_name=class_name,
+                    method_args=method_args)
 
 
 if __name__ == '__main__':

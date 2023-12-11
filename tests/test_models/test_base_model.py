@@ -7,12 +7,10 @@ from datetime import datetime
 from models.base_model import BaseModel
 
 
-class TestInstantiation(unittest.TestCase):
-    """
-    instantiation test
-    """
+class TestBaseModel(unittest.TestCase):
+    """Test suite for the base model"""
     def test_init(self):
-        """Test for init."""
+        """Test for init method."""
         test = BaseModel()
         self.assertIsInstance(test.id, str)
         self.assertIsInstance(test.created_at, datetime)
