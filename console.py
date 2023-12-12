@@ -170,7 +170,6 @@ class HBNBCommand(cmd.Cmd):
         for key, instance in needed.items():
             print(instance)
 
-
     def do_update(self, arg):
         """update <class name> <id> <attribute name> "<attribute value>"
         Update an instance attribute.
