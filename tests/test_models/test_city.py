@@ -4,5 +4,5 @@ import unittest
 
 
 class TestCity(unittest.TestCase):
-	"""Test suite for city.py"""
-	pass
+    """Test suite for city.py"""
+    pass

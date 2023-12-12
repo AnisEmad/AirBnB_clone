@@ -31,6 +31,7 @@ def dot_all(**kwargs):
     """
     kwargs["cmd_instance"].do_all(kwargs["class_name"])
 
+
 def dot_count(**kwargs):
     """<class name>.count()
     Get number of instances available for a class name
@@ -41,6 +42,7 @@ def dot_count(**kwargs):
             count += 1
     print(count)
 
+
 def dot_show(**kwargs):
     """<class name>.show(<id>)
     Show informations about specific instance
@@ -49,6 +51,7 @@ def dot_show(**kwargs):
     """
     arg = kwargs["class_name"] + " " + kwargs["method_args"]
     kwargs["cmd_instance"].do_show(arg)
+
 
 def dot_destroy(**kwargs):
     """<class name>.show(<id>)
@@ -59,21 +62,22 @@ def dot_destroy(**kwargs):
     arg = kwargs["class_name"] + " " + kwargs["method_args"]
     kwargs["cmd_instance"].do_destroy(arg)
 
+
 def dot_update(**kwargs):
     """<class name>.update(<id>, {<attribute name>: <value>})
     Show informations about specific instance
     same as typing:
         update <class name> <id> <attribute name> "<value>"
     """
-    arg_tuple = eval(f"({kwargs['method_args']})") + ("", "", "")
-    if type(arg_tuple[1]) is dict:
-        instance = get_instance(kwargs["class_name"], arg_tuple[0])
+    arg_t = eval(f"({kwargs['method_args']})") + ("", "", "")
+    if type(arg_t[1]) is dict:
+        instance = get_instance(kwargs["class_name"], arg_t[0])
         if instance:
-            instance.__dict__.update(arg_tuple[1])
+            instance.__dict__.update(arg_t[1])
             instance.updated_at = datetime.now()
             storage.save()
     else:
-        arg = f"{kwargs['class_name']} {arg_tuple[0]} {arg_tuple[1]} \"{arg_tuple[2]}\""
+        arg = f"{kwargs['class_name']} {arg_t[0]} {arg_t[1]} \"{arg_t[2]}\""
         kwargs["cmd_instance"].do_update(arg)
 
 
@@ -163,7 +167,6 @@ class HBNBCommand(cmd.Cmd):
                     needed[key] = instance
         elif arg == "":
             needed = storage.all()
-
         for key, instance in needed.items():
             print(instance)
 

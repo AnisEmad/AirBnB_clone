@@ -4,5 +4,5 @@ import unittest
 
 
 class TestPlace(unittest.TestCase):
-	"""Test suite for place.py"""
-	pass
+    """Test suite for place.py"""
+    pass

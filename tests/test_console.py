@@ -4,5 +4,5 @@ import unittest
 
 
 class (unittest.TestCase):
-	"""Test suite for console.py"""
-	pass
+    """Test suite for console.py"""
+    pass

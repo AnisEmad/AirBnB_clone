@@ -4,5 +4,5 @@ import unittest
 
 
 class TestUser(unittest.TestCase):
-	"""Test suite for user.py"""
-	pass
+    """Test suite for user.py"""
+    pass

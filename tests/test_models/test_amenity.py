@@ -4,5 +4,5 @@ import unittest
 
 
 class TestAmenity(unittest.TestCase):
-	"""Test suite for amenity.py"""
-	pass
+    """Test suite for amenity.py"""
+    pass
