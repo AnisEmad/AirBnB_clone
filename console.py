@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """The entry point to interact with the AirBnB console."""
 import cmd
+from datetime import datetime
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -58,11 +59,30 @@ def dot_destroy(**kwargs):
     arg = kwargs["class_name"] + " " + kwargs["method_args"]
     kwargs["cmd_instance"].do_destroy(arg)
 
+def dot_update(**kwargs):
+    """<class name>.update(<id>, {<attribute name>: <value>})
+    Show informations about specific instance
+    same as typing:
+        update <class name> <id> <attribute name> "<value>"
+    """
+    arg_tuple = eval(f"({kwargs['method_args']})") + ("", "", "")
+    if type(arg_tuple[1]) is dict:
+        instance = get_instance(kwargs["class_name"], arg_tuple[0])
+        if instance:
+            instance.__dict__.update(arg_tuple[1])
+            instance.updated_at = datetime.now()
+            storage.save()
+    else:
+        arg = f"{kwargs['class_name']} {arg_tuple[0]} {arg_tuple[1]} \"{arg_tuple[2]}\""
+        kwargs["cmd_instance"].do_update(arg)
+
+
 method_list = {
         "all": dot_all,
         "show": dot_show,
         "count": dot_count,
         "destroy": dot_destroy,
+        "update": dot_update
 }
 
 
@@ -166,6 +186,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             value = get_value(args[3])
             instance.__dict__[args[2]] = value
+            instance.updated_at = datetime.now()
             storage.save()
 
     def do_EOF(self, arg):
