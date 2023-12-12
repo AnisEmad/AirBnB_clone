@@ -49,11 +49,20 @@ def dot_show(**kwargs):
     arg = kwargs["class_name"] + " " + kwargs["method_args"]
     kwargs["cmd_instance"].do_show(arg)
 
+def dot_destroy(**kwargs):
+    """<class name>.show(<id>)
+    Show informations about specific instance
+    same as typing:
+        show <class name> <id>
+    """
+    arg = kwargs["class_name"] + " " + kwargs["method_args"]
+    kwargs["cmd_instance"].do_destroy(arg)
 
 method_list = {
         "all": dot_all,
         "show": dot_show,
         "count": dot_count,
+        "destroy": dot_destroy,
 }
 
 
