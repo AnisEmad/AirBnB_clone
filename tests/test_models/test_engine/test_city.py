@@ -2,6 +2,7 @@
 """Module for testing city.py module"""
 import unittest
 
+
 class (unittest.TestCase):
-	"""Test suite for city.py"""
-	pass
+    """Test suite for city.py"""
+    pass
